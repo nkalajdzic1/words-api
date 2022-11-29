@@ -2,10 +2,10 @@ import bodyParser from "body-parser";
 import express from "express";
 import cors from "cors";
 
-import { webRouter } from "./routes/index.js";
-import { connectDB } from "./db/connectDb.js";
-import { ENV } from "./config/environment.js";
-import { Logger } from "./lib/classes/Logger.js";
+import { webRouter } from "./src/routes/index.js";
+import { connectDB } from "./src/db/connectDb.js";
+import { ENV } from "./src/config/environment.js";
+import { Logger } from "./src/lib/classes/Logger.js";
 
 const app = express();
 
