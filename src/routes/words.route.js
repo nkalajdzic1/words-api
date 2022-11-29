@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { QueryModel } from "../lib/classes/QueryModel.js";
 import { DbQueryBuilder } from "../lib/classes/DbQueryBuilder.js";
+import { HttpHeaders } from "../lib/classes/HttpHeaders.js";
 
 import { WordModel } from "../models/WordModel.js";
 
@@ -36,7 +37,7 @@ router.get("/", async (req, res) => {
   const [response] = await WordModel.aggregate(queryPipelines);
 
   // set response header (number of records)
-  res.setHeader("x-total-count", response?.total?.[0]?.total || 0);
+  HttpHeaders.setXTotalCount(res, response?.total?.[0]?.total);
 
   // return the list
   return res.json(response.list);

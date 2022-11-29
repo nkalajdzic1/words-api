@@ -20,6 +20,9 @@ app.use(bodyParser.json());
 // set up routes
 app.use("/api/v1", webRouter);
 
+// global error handler
+process.on("uncaughtException", (err) => Logger.logFullError(err));
+
 app.listen(ENV.PORT, () =>
   Logger.info(`Server is running on port ${ENV.PORT}`)
 );
