@@ -16,8 +16,10 @@ router.get("/", async (req, res) => {
   });
   if (errors.length) throw errors;
 
+  // get the query request params
   const queryObj = queryModel.getParams();
 
+  // create the query that will be executed
   const queryPipelines = [
     ...DbQueryBuilder.getSearchingPipelines(queryObj),
     ...DbQueryBuilder.getSortingPipelines(queryObj),
@@ -30,33 +32,41 @@ router.get("/", async (req, res) => {
     ]),
   ];
 
+  // run the aggregation/query
   const [response] = await WordModel.aggregate(queryPipelines);
 
+  // set response header (number of records)
   res.setHeader("x-total-count", response?.total?.[0]?.total || 0);
 
+  // return the list
   return res.json(response.list);
 });
 
+// get a word
 router.get("/:id", async (req, res) =>
   res.send(await WordModel.findById(req.params.id))
 );
 
+// create a word
 router.post("/", async (_req, res) => {
   return res.send({ message: "Method to create a word " });
 });
 
+// update a word
 router.put("/:id", async (req, res) => {
   return res.send({
     message: `Method to update a word with id ${req.params.id}`,
   });
 });
 
+// partially update a word
 router.patch("/:id", async (req, res) => {
   return res.send({
     message: `Method to update a word partially with id ${req.params.id}`,
   });
 });
 
+// delete a word
 router.delete("/:id", async (req, res) => {
   return res.send({
     message: `Method to delete a word with id ${req.params.id}`,

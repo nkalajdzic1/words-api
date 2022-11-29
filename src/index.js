@@ -5,8 +5,12 @@ import cors from "cors";
 
 import { webRouter } from "./routes/index.js";
 import { connectDB } from "./db/connectDb.js";
+import { ENV } from "./config/environment.js";
+import { Logger } from "./lib/classes/Logger.js";
 
 const app = express();
+
+// import environment variables
 dotenv.config();
 
 // connect to database
@@ -17,13 +21,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/api/v1/health", (_req, res) => res.send("Server is running"));
-
 // set up routes
 app.use("/api/v1", webRouter);
 
-const port = process.env.PORT || 8080;
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}.`);
-});
+app.listen(ENV.PORT, () =>
+  Logger.info(`Server is running on port ${ENV.PORT}`)
+);
