@@ -1,6 +1,5 @@
 import bodyParser from "body-parser";
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 
 import { webRouter } from "./routes/index.js";
@@ -9,9 +8,6 @@ import { ENV } from "./config/environment.js";
 import { Logger } from "./lib/classes/Logger.js";
 
 const app = express();
-
-// import environment variables
-dotenv.config();
 
 // connect to database
 connectDB();
