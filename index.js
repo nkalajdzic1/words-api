@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 // set up routes
 app.use("/api/v1", webRouter);
 
-app.get("/", (req, res) => res.send("App is running"));
+app.get("/", (_req, res) => res.send("App is running"));
 
 // global error handler
 process.on("uncaughtException", (err) => Logger.logFullError(err));
